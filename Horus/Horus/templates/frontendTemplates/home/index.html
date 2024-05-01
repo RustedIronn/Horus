@@ -1,0 +1,74 @@
+{% extends "frontendTemplates/layouts/frame-home.html" %}
+
+{% block title %} Horus |{% endblock %}
+
+{% block main-content %}
+
+
+{% load static %}
+
+{% if user.is_authenticated %}
+
+<section id="section-banner">
+    <img src='{% static "./images/a.jpg" %}' alt="">
+</section>
+
+<section id="section-song">
+    <div class="songs">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-10 m-auto">
+                    <h1>Looking for music?</h1>
+                    <h3>
+                        Start listening to the best new releases.
+                    </h3>
+                    <a href="{% url 'player-index' %}" class="button-webPlay">Launch Web Player</a>
+                </div>
+            </div>
+
+
+            <div class="row cstm-mar">
+                {% for row in data %}
+                <div class="col-4" style="padding: 10px;">
+                    <div class="songs-col">
+                        {% static "./images/home.jpg" as baseURL %}
+                        <img src='{{ baseURL|cut:".jpg" }}{{ forloop.counter }}.jpg' alt="">
+                        <a href='{% url "player-index-id" sid=row.song_id %}' class="songs-col-overlay">
+                            <div class="songs-col-caption">
+                                <h2>{{row.name}}</h2>
+                                <p>{{row.artist}}</p>
+                                <p class="playLink">play now</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+                
+            </div>
+            
+
+
+
+
+
+        </div>
+    </div>
+</section>
+
+{% else %}
+
+<section id="section-guest">
+    <div class="guest">
+        <div class="container">
+            <div class="guest-content">
+                <h2>Music for everyone</h2>
+                <p>Millions of songs</p>
+                <a href="/signup/">sign up here</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endif %}
+
+{% endblock %}

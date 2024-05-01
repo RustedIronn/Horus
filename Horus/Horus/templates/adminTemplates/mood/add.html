@@ -1,0 +1,64 @@
+{% extends "adminTemplates/layouts/layout-dashboard.html" %}
+
+{% block title %} Admin Dashboard | Mood Add {% endblock %}
+
+{% block main-section %}
+
+			<div class="container">
+
+				<div class="row">
+					<div class="col-12 text-center">
+						<div class="main-section">
+							<h2 class="content-heading">Add New Mood</h2>
+                        
+                        {% if messages %}
+                        <div class="alert alert-danger" role="alert">
+                                {% for message in messages %}
+                                <small{% if message.tags %} class="error1 {{ message.tags }}"{% endif %}>{{ message }}</small>
+                                {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <form action="{% url 'mood-save' %}" method="post">
+
+                            {% csrf_token %}
+
+                            <div class="row">
+
+                                <div class="col-6">
+                                    <div class="form-group text-left">
+
+                                        <label for="mood-name">Mood Name</label>
+                                        <input name="name" type="text" class="form-control" id="mood-name" placeholder="Add a new mood">
+                                      </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group text-left">
+
+                                        <label for="mood-description">Mood Description</label>
+                                        <input name="desc" type="text" class="form-control" id="mood-description" placeholder="Add a mood description">
+                                      </div>
+                                </div>
+                                
+                            </div>
+
+                            <div class="row">
+                                <div class="col text-right">
+
+                                    <button type="submit" class="btn btn-outline-success">Submit</button>
+
+                                    <button onclick="location.href='{% url 'mood-index' %}'" type="button" class="btn btn-outline-secondary">Dismiss</button>
+                                </div>
+                            </div>
+                            
+                        </form>
+
+							
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+{% endblock %}
